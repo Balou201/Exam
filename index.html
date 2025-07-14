@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test d'amitié intelligente</title>
     <style>
+        /* Styles CSS pour un design simple, lisible et responsive */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
+            background-color: #f0f4f8; /* Arrière-plan doux */
+            color: #333; /* Texte principal */
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+            align-items: flex-start; /* Alignement en haut pour les longs contenus */
+            min-height: 100vh; /* Hauteur minimale de la page */
             box-sizing: border-box;
         }
         .container {
-            background-color: #ffffff;
+            background-color: #ffffff; /* Fond blanc pour le contenu */
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Légère ombre */
+            max-width: 800px; /* Largeur maximale pour la lisibilité */
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: 30px; /* Espace en bas pour le responsive */
         }
         h1 {
-            color: #4a6fa5;
+            color: #4a6fa5; /* Couleur du titre */
             text-align: center;
             margin-bottom: 30px;
             font-size: 2em;
@@ -35,10 +36,10 @@
         .question {
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #eee; /* Ligne de séparation */
         }
         .question:last-of-type {
-            border-bottom: none;
+            border-bottom: none; /* Pas de ligne sous la dernière question */
             margin-bottom: 0;
             padding-bottom: 0;
         }
@@ -52,13 +53,13 @@
             display: block;
             margin-bottom: 10px;
             padding: 12px;
-            background-color: #eef5ff;
+            background-color: #eef5ff; /* Fond clair pour les options */
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         .options label:hover {
-            background-color: #dbe8fd;
+            background-color: #dbe8fd; /* Effet au survol */
         }
         .options input[type="radio"],
         .options input[type="text"],
@@ -72,7 +73,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             width: calc(100% - 20px); /* Ajustement pour le padding */
-            box-sizing: border-box;
+            box-sizing: border-box; /* Inclut padding et border dans la largeur */
             margin-top: 5px;
         }
 
@@ -80,7 +81,7 @@
             display: block;
             width: 100%;
             padding: 15px;
-            background-color: #4CAF50; /* Vert pour valider */
+            background-color: #4CAF50; /* Vert pour le bouton Valider */
             color: white;
             border: none;
             border-radius: 8px;
@@ -90,11 +91,11 @@
             margin-top: 30px;
         }
         button:hover:not(:disabled) {
-            background-color: #45a049;
-            transform: translateY(-2px);
+            background-color: #45a049; /* Effet au survol */
+            transform: translateY(-2px); /* Léger décalage */
         }
         button:disabled {
-            background-color: #cccccc;
+            background-color: #cccccc; /* Couleur si désactivé */
             cursor: not-allowed;
         }
         #result {
@@ -104,17 +105,17 @@
             font-weight: bold;
             color: #2c3e50;
             padding: 20px;
-            background-color: #e9f5e9;
+            background-color: #e9f5e9; /* Fond pour le résultat */
             border-radius: 8px;
             display: none; /* Masqué par défaut */
         }
         #result .animal-code {
             font-size: 1.8em;
             margin-top: 15px;
-            color: #007bff; /* Bleu pour le code */
+            color: #007bff; /* Couleur distinctive pour le code */
         }
 
-        /* Responsive */
+        /* Styles Responsive pour les petits écrans */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -158,12 +159,15 @@
     <script src="quizData.js"></script>
 
     <script>
+        // Récupération des éléments HTML nécessaires
         const quizForm = document.getElementById('quizForm');
         const submitButton = document.getElementById('submitQuiz');
         const resultDiv = document.getElementById('result');
         const animalCodeSpan = document.getElementById('animalCode');
 
-        // Fonction pour mélanger un tableau (utile pour les options des QCM)
+        // --- Fonctions utilitaires ---
+
+        // Fonction pour mélanger un tableau (utilisée pour mélanger les options des QCM)
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -171,35 +175,40 @@
             }
         }
 
-        // Fonction pour charger les questions dans le HTML
+        // Fonction pour charger et afficher les questions dans le HTML
         function loadQuestions() {
+            // Parcourir chaque question définie dans le tableau 'questions' (qui vient de quizData.js)
             questions.forEach((q) => {
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'question';
                 questionDiv.id = q.id;
 
-                // Masquer la question si elle est marquée comme hidden
+                // Si la question est marquée comme "hidden" dans quizData.js, on la masque
                 if (q.hidden) {
                     questionDiv.style.display = 'none';
                 }
 
                 const p = document.createElement('p');
-                // N'affiche pas le numéro pour les questions cachées, juste pour les questions visibles
-                p.textContent = q.hidden ? q.question : `${questions.filter(item => !item.hidden).indexOf(q) + 1}. ${q.question}`;
+                // Calculer le numéro de question uniquement pour les questions visibles
+                const visibleQuestions = questions.filter(item => !item.hidden);
+                const questionNumber = visibleQuestions.indexOf(q) + 1;
+                // Le texte de la question pour les pièges invisibles est vide ici
+                p.textContent = q.hidden ? '' : `${questionNumber}. ${q.question}`;
                 questionDiv.appendChild(p);
 
                 const optionsDiv = document.createElement('div');
                 optionsDiv.className = 'options';
 
+                // Générer les champs de réponse en fonction du type de question
                 if (q.type === 'qcm') {
                     const optionKeys = Object.keys(q.options);
-                    shuffleArray(optionKeys); // Mélange les options
+                    shuffleArray(optionKeys); // Mélanger l'ordre des options
 
                     optionKeys.forEach(key => {
                         const label = document.createElement('label');
                         const input = document.createElement('input');
                         input.type = 'radio';
-                        input.name = q.id;
+                        input.name = q.id; // Le nom du groupe radio est l'ID de la question
                         input.value = key;
                         label.appendChild(input);
                         label.appendChild(document.createTextNode(q.options[key]));
@@ -217,12 +226,12 @@
                     input.name = q.id;
                     input.placeholder = 'Votre réponse texte';
                     optionsDiv.appendChild(input);
-                } else if (q.type === 'checkbox') { // Pour les questions pièges de type checkbox
+                } else if (q.type === 'checkbox') { // Spécifique pour les questions pièges invisibles de type checkbox
                     const input = document.createElement('input');
                     input.type = 'checkbox';
                     input.name = q.id;
+                    // Pas de label visible ou de texte de question pour les pièges cachés
                     optionsDiv.appendChild(input);
-                    optionsDiv.appendChild(document.createTextNode(q.question)); // Ajoute le texte de la question pour la checkbox
                 }
 
                 questionDiv.appendChild(optionsDiv);
@@ -230,28 +239,46 @@
             });
         }
 
+        // --- Logique du quiz ---
+
         // Écouteur d'événement pour la soumission du formulaire
         submitButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Empêche le rechargement de la page
+            event.preventDefault(); // Empêche le comportement par défaut du formulaire (rechargement de la page)
 
             let score = 0;
             let tricheDetected = false;
 
+            // Parcourir toutes les questions pour vérifier les réponses et détecter la triche
             questions.forEach((q) => {
-                // Gérer la détection de triche pour les questions invisibles
+                // *** LOGIQUE DE DÉTECTION DE TRICHE : QUESTIONS INVISIBLES ***
+                // Ces pièges détectent si l'utilisateur a manipulé le code pour interagir avec des champs cachés.
                 if (q.hidden) {
                     if (q.type === 'checkbox') {
                         const checkbox = document.querySelector(`input[name="${q.id}"][type="checkbox"]`);
-                        if (checkbox && checkbox.checked !== q.answer) { // Si la checkbox est cochée alors qu'elle ne devrait pas l'être
+                        // Si la case à cocher invisible est cochée (alors qu'elle ne devrait pas l'être selon q.answer = false)
+                        if (checkbox && checkbox.checked !== q.answer) {
                             tricheDetected = true;
                         }
                     } else if (q.type === 'text' || q.type === 'numeric') {
                         const input = document.querySelector(`input[name="${q.id}"]`);
-                        if (input && input.value.trim() !== q.answer.toString().trim()) { // Si le champ est rempli alors qu'il ne devrait pas l'être
+                        // Si le champ texte/numérique invisible est rempli (alors qu'il devrait rester vide selon q.answer = "")
+                        if (input && input.value.trim() !== q.answer.toString().trim()) {
                              tricheDetected = true;
                         }
                     }
-                } else { // Traiter les questions visibles pour le score
+                }
+                // *** LOGIQUE DE DÉTECTION DE TRICHE : QUESTION SUPER COMPLEXE (Q14) ***
+                // Si l'utilisateur donne la bonne réponse à Q14, c'est considéré comme de la triche.
+                else if (q.id === "q14") {
+                    const input = document.querySelector(`input[name="${q.id}"]`);
+                    if (input && input.value.trim() === q.answer.toString().trim()) {
+                        tricheDetected = true;
+                        // On n'ajoute pas de score pour cette question même si la réponse est "correcte"
+                        // car le but est de la détecter comme une triche.
+                    }
+                }
+                // *** LOGIQUE DE CALCUL DU SCORE : QUESTIONS VISIBLES (hors Q14) ***
+                else {
                     if (q.type === 'qcm') {
                         const selectedOption = document.querySelector(`input[name="${q.id}"]:checked`);
                         if (selectedOption && selectedOption.value === q.answer) {
@@ -259,11 +286,12 @@
                         }
                     } else if (q.type === 'numeric') {
                         const input = document.querySelector(`input[name="${q.id}"]`);
-                        if (input && parseFloat(input.value) === parseFloat(q.answer)) {
+                        if (input && Number(input.value) === Number(q.answer)) {
                             score++;
                         }
                     } else if (q.type === 'text') {
                         const input = document.querySelector(`input[name="${q.id}"]`);
+                        // Comparaison insensible à la casse et aux espaces superflus
                         if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
                             score++;
                         }
@@ -271,11 +299,17 @@
                 }
             });
 
-            // Déterminer le code animal
+            // Déterminer le code animal en fonction du score et de la détection de triche
             let animalCode;
-            if (tricheDetected || score < 12) { // Score < 12/15 ou triche détectée
+            // Compte le nombre de questions visibles QUI COMPTENT POUR LE SCORE (donc pas les cachées, pas Q14)
+            const visibleQuestionsForScore = questions.filter(q => !q.hidden && q.id !== "q14").length;
+            const scoreThreshold = 11; // Seuil de réussite : 11 bonnes réponses sur les 13 questions normales
+
+            if (tricheDetected || score < scoreThreshold) {
+                // Si triche détectée OU score trop bas, c'est un code négatif
                 animalCode = negativeCodes[Math.floor(Math.random() * negativeCodes.length)];
-            } else { // Score >= 12/15 et pas de triche
+            } else {
+                // Sinon (bon score et pas de triche), c'est un code positif
                 animalCode = positiveCodes[Math.floor(Math.random() * positiveCodes.length)];
             }
 
@@ -286,14 +320,14 @@
             // Désactiver le bouton de soumission après le premier essai
             submitButton.disabled = true;
 
-            // Désactiver tous les champs du formulaire pour éviter de changer les réponses
+            // Désactiver tous les champs de réponse du formulaire pour éviter de modifier les réponses
             const allFormElements = quizForm.querySelectorAll('input, select, textarea, button');
             allFormElements.forEach(element => {
                 element.disabled = true;
             });
         });
 
-        // Charger les questions au chargement de la page
+        // Charger les questions dès que le DOM est entièrement chargé
         document.addEventListener('DOMContentLoaded', loadQuestions);
     </script>
 </body>
