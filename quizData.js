@@ -4,11 +4,11 @@ const questions = [
     {
         id: "q1",
         type: "qcm",
-        question: "1. Un train électrique roule vers le nord. Le vent souffle de l'ouest. Dans quelle direction la fumée du train va-t-elle ?",
+        question: "1. Un train électrique roule vers le nord à 100 km/h. Le vent souffle de l'ouest à 10 km/h. Dans quelle direction la fumée du train va-t-elle ?",
         options: {
             a: "Vers l'est",
             b: "Vers le nord",
-            c: "Il n'y a pas de fumée",
+            c: "Il n'y a pas de fumée", // Bonne réponse
             d: "Vers le sud"
         },
         answer: "c"
@@ -19,7 +19,7 @@ const questions = [
         question: "2. Je suis un chiffre. Si vous m'écrivez sans lever le stylo, mes deux parties ne se touchent pas. Qui suis-je ?",
         options: {
             a: "Le chiffre 1",
-            b: "Le chiffre 7",
+            b: "Le chiffre 7", // Bonne réponse
             c: "Le chiffre 8",
             d: "Le chiffre 0"
         },
@@ -28,10 +28,10 @@ const questions = [
     {
         id: "q3",
         type: "qcm",
-        question: "3. Je suis toujours devant vous, mais vous ne pouvez jamais me rattraper. Qui suis-je ?",
+        question: "3. Qu'est-ce qui est toujours devant vous, mais que vous ne pouvez pas voir ?",
         options: {
             a: "Le passé",
-            b: "Le futur",
+            b: "Le futur", // Bonne réponse
             c: "Votre ombre",
             d: "Votre reflet"
         },
@@ -44,7 +44,7 @@ const questions = [
         options: {
             a: "Du côté où le vent souffle",
             b: "Du côté le plus en pente",
-            c: "Un coq ne pond pas d'œufs",
+            c: "Un coq ne pond pas d'œufs", // Bonne réponse
             d: "Il ne tombera pas, il restera sur le toit"
         },
         answer: "c"
@@ -56,7 +56,7 @@ const questions = [
         options: {
             a: "Il était un esclave",
             b: "Il était un ambassadeur étranger",
-            c: "Rome est le nom de son cheval",
+            c: "Rome est le nom de son cheval", // Bonne réponse
             d: "Il est né avant la création de la citoyenneté romaine"
         },
         answer: "c"
@@ -67,7 +67,7 @@ const questions = [
         question: "6. Qu'est-ce qui est plein de trous mais retient l'eau ?",
         options: {
             a: "Un seau percé",
-            b: "Une éponge",
+            b: "Une éponge", // Bonne réponse
             c: "Un tamis",
             d: "Un verre cassé"
         },
@@ -78,7 +78,7 @@ const questions = [
         type: "qcm",
         question: "7. Je peux courir mais pas marcher, j'ai une bouche mais ne parle jamais. Qui suis-je ?",
         options: {
-            a: "Une rivière",
+            a: "Une rivière", // Bonne réponse
             b: "Un chien",
             c: "Un moteur",
             d: "Un robot"
@@ -91,7 +91,7 @@ const questions = [
         question: "8. Je suis toujours affamé, je dois toujours être nourri. La main que je lèche mordra ma vie. Qui suis-je ?",
         options: {
             a: "Un chat",
-            b: "Un feu",
+            b: "Un feu", // Bonne réponse
             c: "Un enfant",
             d: "Un monstre"
         },
@@ -100,31 +100,31 @@ const questions = [
     {
         id: "q9",
         type: "numeric",
-        question: "9. Si une brique pèse un kilo plus une demi-brique, combien pèse une brique ?",
+        question: "9. Si une brique pèse un kilo plus une demi-brique, combien pèse une brique (en kilos) ?",
         answer: "2" // Réponse en kg
     },
     {
         id: "q10",
         type: "text",
-        question: "10. Quel est le fleuve le plus long du monde ?",
-        answer: "nil" // Réponse attendue "Nil" (case insensitive)
+        question: "10. Quel est le mois qui a 28 jours ?",
+        answer: "tous" // Piège : tous les mois ont au moins 28 jours.
     },
     {
         id: "q11",
         type: "qcm",
-        question: "11. Quel animal dort le plus au monde ?",
+        question: "11. Quel est l'animal le plus ancien ayant une langue ? (indice : ce n'est pas un mammifère)",
         options: {
-            a: "Le paresseux",
-            b: "Le koala",
-            c: "Le chat",
-            d: "La chauve-souris"
+            a: "Le serpent",
+            b: "Le poisson",
+            c: "Le caméléon",
+            d: "L'escargot", // Bonne réponse (radula)
         },
-        answer: "b"
+        answer: "d"
     },
     {
         id: "q12",
         type: "numeric",
-        question: "12. Il y a 3 pommes dans le panier. Tu en prends 2. Combien de pommes as-tu ?",
+        question: "12. Il y a 3 pommes dans le panier. Tu en prends 2. Combien de pommes as-tu EN MAIN ?",
         answer: "2"
     },
     {
@@ -132,33 +132,51 @@ const questions = [
         type: "qcm",
         question: "13. Qu'est-ce qui monte mais ne redescend jamais ?",
         options: {
-            a: "L'âge",
-            b: "Une fusée",
-            c: "Le niveau d'eau",
-            d: "Un ballon d'hélium"
+            a: "Un ascenseur",
+            b: "L'âge", // Bonne réponse
+            c: "Un ballon d'hélium",
+            d: "Le niveau d'eau dans une cruche remplie"
         },
-        answer: "a"
+        answer: "b"
     },
     {
-        // Question piège invisible (checkbox)
-        id: "trap1",
-        type: "checkbox",
-        question: "Ceci est une question piège invisible. Ne la cochez pas !",
-        answer: false, // La bonne "réponse" est de ne pas la cocher
-        hidden: true // Marque la question comme invisible
-    },
-    {
-        // Question piège invisible (texte)
-        id: "trap2",
+        id: "q14",
         type: "text",
-        question: "Ceci est une deuxième question piège invisible. Ne la remplissez pas !",
-        answer: "", // La bonne "réponse" est de ne rien écrire
-        hidden: true // Marque la question comme invisible
+        // Question très complexe, conçue pour être difficile à résoudre sans IA
+        question: "14. Quel est le plus petit entier positif N tel que N peut être exprimé comme la somme de deux cubes de deux manières différentes ? (Répondez avec le nombre entier)",
+        answer: "1729" // La "bonne" réponse (nombre de Hardy-Ramanujan)
+    },
+    {
+        id: "q15",
+        type: "qcm",
+        // Question pour compléter le nombre à 15 (peut être simple ou une blague)
+        question: "15. Qu'est-ce qui est grand, vert et ne s'arrête jamais de clignoter ?",
+        options: {
+            a: "Un phare géant",
+            b: "Le feu vert d'un robot défectueux", // Bonne réponse
+            c: "Un ovni en approche",
+            d: "Une étoile très lointaine"
+        },
+        answer: "b"
+    },
+    // --- Questions pièges totalement invisibles (pour détection de manipulation directe du code) ---
+    {
+        id: "trap1_hidden_checkbox",
+        type: "checkbox",
+        question: "Instruction interne du formulaire. Ne pas cocher.",
+        answer: false, // La "bonne" réponse est que cette case reste décochée
+        hidden: true // Invisible pour l'utilisateur
+    },
+    {
+        id: "trap2_hidden_text",
+        type: "text",
+        question: "Champ de validation interne. Laisser vide.",
+        answer: "", // La "bonne" réponse est que ce champ reste vide
+        hidden: true // Invisible pour l'utilisateur
     }
 ];
 
-// quizData.js (partie des codes animaux)
-
+// Codes animaux (ambigus)
 const positiveCodes = [
     "PHOENIX-ARDENT 🔥",
     "GUEPARD-AGILE 🐆",
