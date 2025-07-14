@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test d'amitié intelligente</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #4a6fa5;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .question p {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 12px;
+            background-color: #eef5ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .options label:hover {
+            background-color: #dbe8fd;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50; /* Vert pour valider */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 30px;
+        }
+        button:hover:not(:disabled) {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 20px;
+            background-color: #e9f5e9;
+            border-radius: 8px;
+            display: none; /* Masqué par défaut */
+        }
+        #result .animal-code {
+            font-size: 1.8em;
+            margin-top: 15px;
+            color: #007bff; /* Bleu pour le code */
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            button {
+                font-size: 1em;
+                padding: 12px;
+            }
+            .question p {
+                font-size: 1em;
+            }
+            .options label {
+                padding: 10px;
+            }
+            #result {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+            #result .animal-code {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test d'amitié intelligente</h1>
+        <form id="quizForm">
+            </form>
+        <button type="submit" id="submitQuiz">Valider le test</button>
+        <div id="result">
+            <p>Ton code secret est :</p>
+            <p class="animal-code" id="animalCode"></p>
+        </div>
+    </div>
+
+    <script src="quizData.js"></script>
+
+    <script>
+        // --- Fonctions du quiz ---
+        const quizForm = document.getElementById('quizForm');
+        const submitButton = document.getElementById('submitQuiz');
+        const resultDiv = document.getElementById('result');
+        const animalCodeSpan = document.getElementById('animalCode');
+
+        // Fonction pour mélanger un tableau (utile pour les options)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Fonction pour charger les questions dans le HTML
+        function loadQuestions() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `q${index + 1}`;
+
+                const p = document.createElement('p');
+                p.textContent = q.question;
+                questionDiv.appendChild(p);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+
+                const optionKeys = Object.keys(q.options);
+                shuffleArray(optionKeys); // Mélange les options
+
+                optionKeys.forEach(key => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `q${index + 1}`;
+                    input.value = key;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(q.options[key]));
+                    optionsDiv.appendChild(label);
+                });
+                questionDiv.appendChild(optionsDiv);
+                quizForm.appendChild(questionDiv);
+            });
+        }
+
+        // Écouteur d'événement pour la soumission du formulaire
+        submitButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+
+            let score = 0;
+            const userAnswers = {};
+
+            // Collecter les réponses de l'utilisateur
+            questions.forEach((q, index) => {
+                const questionName = `q${index + 1}`;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                if (selectedOption) {
+                    userAnswers[questionName] = selectedOption.value;
+                } else {
+                    // Si une question n'est pas répondue, on peut la considérer fausse
+                    userAnswers[questionName] = null;
+                }
+            });
+
+            // Vérifier les réponses et calculer le score
+            questions.forEach((q, index) => {
+                const questionName = `q${index + 1}`;
+                if (userAnswers[questionName] === q.answer) {
+                    score++;
+                }
+            });
+
+            // Déterminer le code animal
+            let animalCode;
+            if (score >= 8) {
+                animalCode = positiveCodes[Math.floor(Math.random() * positiveCodes.length)];
+            } else {
+                animalCode = negativeCodes[Math.floor(Math.random() * negativeCodes.length)];
+            }
+
+            // Afficher le résultat
+            animalCodeSpan.textContent = animalCode;
+            resultDiv.style.display = 'block';
+
+            // Désactiver le bouton de soumission après le premier essai
+            submitButton.disabled = true;
+
+            // Désactiver toutes les options radio pour éviter de changer les réponses
+            const allRadios = document.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(radio => {
+                radio.disabled = true;
+            });
+        });
+
+        // Charger les questions au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadQuestions);
+    </script>
+</body>
+</html>
