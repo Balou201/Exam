@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const animalResult = document.getElementById('animal-result');
 
     let currentScore = 0;
-    let userAnswers = {}; // Pour stocker les réponses de l'utilisateur
+    let userAnswers = {}; // To store user's selected answers
 
-    // Assurez-vous que questions, positiveCodes et negativeCodes sont définis dans quizData.js
-    // et accessibles globalement ou importés. Pour ce setup simple, on les suppose globaux.
+    // Ensure questions, positiveCodes, and negativeCodes are defined in quizData.js
+    // and are accessible (make sure quizData.js is loaded BEFORE script.js in index.html)
 
     function displayQuestions() {
-        quizContainer.innerHTML = ''; // Nettoie le conteneur des questions
+        quizContainer.innerHTML = ''; // Clear previous questions
         questions.forEach(q => {
             const questionCard = document.createElement('div');
             questionCard.classList.add('question-card');
@@ -21,59 +21,61 @@ document.addEventListener('DOMContentLoaded', () => {
             const optionsDiv = document.createElement('div');
             optionsDiv.classList.add('options');
 
-            // Pour les questions QCM
+            // Handle QCM type questions
             if (q.type === 'qcm') {
                 for (const key in q.options) {
                     const label = document.createElement('label');
-                    label.innerHTML = `<input type="radio" name="${q.id}" value="${key}"> ${q.options[key]}`;
+                    // Check if there's a stored answer for this question and pre-select it
+                    const isChecked = userAnswers[q.id] === key ? 'checked' : '';
+                    label.innerHTML = `<input type="radio" name="${q.id}" value="${key}" ${isChecked}> ${q.options[key]}`;
                     optionsDiv.appendChild(label);
                 }
             }
-            // Ajoutez d'autres types de questions si nécessaire (numeric, text, checkbox)
-            // Pour ce quiz, nous nous concentrons sur le QCM pour la beauté intérieure.
+            // Add other question types (numeric, text, checkbox) if they were part of quizData.js
+            // For this "Beauté intérieure" quiz, we are focusing on QCM.
 
             questionCard.appendChild(optionsDiv);
             quizContainer.appendChild(questionCard);
         });
 
-        submitButton.style.display = 'block'; // Affiche le bouton de soumission
-        restartButton.style.display = 'none'; // Cache le bouton de redémarrage au début
-        resultContainer.style.display = 'none'; // Cache les résultats
-        animalResult.textContent = ''; // Réinitialise le texte de l'animal
+        submitButton.style.display = 'block'; // Show the submit button
+        restartButton.style.display = 'none'; // Hide restart button initially
+        resultContainer.style.display = 'none'; // Hide results container
+        animalResult.textContent = ''; // Clear animal result text
     }
 
     function calculateScore() {
         currentScore = 0;
-        let allAnswered = true; // Pour vérifier si toutes les questions ont été répondues
+        let allAnswered = true; // Flag to check if all questions are answered
 
         questions.forEach(q => {
             const selectedOption = document.querySelector(`input[name="${q.id}"]:checked`);
             if (selectedOption) {
-                userAnswers[q.id] = selectedOption.value; // Stocke la réponse de l'utilisateur
+                userAnswers[q.id] = selectedOption.value; // Store the user's answer
                 if (q.type === 'qcm' && selectedOption.value === q.answer) {
                     currentScore += q.score;
                 }
-                // Gérez d'autres types de questions si elles ont été ajoutées et ont un score
+                // Handle scores for other question types if added
             } else {
-                allAnswered = false; // Une question n'a pas été répondue
+                allAnswered = false; // A question was not answered
             }
         });
-
         return allAnswered;
     }
 
+    // This function is based on the logic you provided in the previous turn for animal codes
     function getAnimalCode(score) {
-        // Le score total maximum est de 10 questions * 10 points/question = 100 points.
-        // Ajuste les seuils pour répartir équitablement les codes.
+        // Max score is 10 questions * 10 points/question = 100 points.
+        // Adjust thresholds to distribute codes evenly.
         if (score >= 90) { // Excellent
             return positiveCodes[0]; // PHOENIX-ARDENT
-        } else if (score >= 70) { // Très bon
+        } else if (score >= 70) { // Very good
             return positiveCodes[1]; // GUEPARD-AGILE
-        } else if (score >= 50) { // Bon
+        } else if (score >= 50) { // Good
             return positiveCodes[2]; // COBRA-SAGE
-        } else if (score >= 30) { // Moyen
+        } else if (score >= 30) { // Average
             return negativeCodes[0]; // LAMA-RÊVEUR
-        } else { // À travailler
+        } else { // Needs improvement
             return negativeCodes[1]; // PANDA-CALME
         }
     }
@@ -93,20 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const finalAnimal = getAnimalCode(currentScore);
         animalResult.textContent = finalAnimal;
-        animalResult.className = ''; // Réinitialise les classes
-        animalResult.classList.add(finalAnimal.split(' ')[0]); // Ajoute la classe pour le style spécifique
+        animalResult.className = ''; // Reset existing classes
+        // Add a class based on the animal name (first word) for specific styling
+        animalResult.classList.add(finalAnimal.split(' ')[0]);
     }
 
     submitButton.addEventListener('click', showResult);
     restartButton.addEventListener('click', () => {
-        // Réinitialise l'état du quiz
+        // Reset quiz state
         currentScore = 0;
-        userAnswers = {};
+        userAnswers = {}; // Clear stored answers
         quizContainer.style.display = 'block';
-        displayQuestions(); // Réaffiche les questions
+        displayQuestions(); // Redisplay questions
     });
 
-    // Initialise le quiz au chargement de la page
+    // Initialize the quiz when the page loads
     displayQuestions();
 });
-
