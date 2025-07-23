@@ -109,3 +109,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialise le quiz au chargement de la page
     displayQuestions();
 });
+
