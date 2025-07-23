@@ -1,194 +1,122 @@
-// quizData.js
-
 const questions = [
     {
-        id: "q1",
+        id: "bi1",
         type: "qcm",
-        question: "1. Un train électrique roule vers le nord à 100 km/h. Le vent souffle de l'ouest à 10 km/h. Dans quelle direction la fumée du train va-t-elle ?",
+        question: "1. Tu vois quelqu’un se faire humilier en public. Quelle est ta réaction instinctive ?",
         options: {
-            a: "Vers l'est",
-            b: "Vers le nord",
-            c: "Il n'y a pas de fumée", // Bonne réponse
-            d: "Vers le sud"
+            a: "Je ris avec les autres pour ne pas être exclu",
+            b: "Je regarde ailleurs, ce n'est pas mon affaire",
+            c: "Je m'interpose ou je soutiens discrètement la personne", // Bonne réponse
+            d: "Je filme pour le poster plus tard"
         },
         answer: "c"
     },
     {
-        id: "q2",
+        id: "bi2",
         type: "qcm",
-        question: "2. Je suis un chiffre. Si vous m'écrivez sans lever le stylo, mes deux parties ne se touchent pas. Qui suis-je ?",
+        question: "2. Tu apprends qu’une rumeur circule sur quelqu’un que tu connais peu. Que fais-tu ?",
         options: {
-            a: "Le chiffre 1",
-            b: "Le chiffre 7", // Bonne réponse
-            c: "Le chiffre 8",
-            d: "Le chiffre 0"
-        },
-        answer: "b"
-    },
-    {
-        id: "q3",
-        type: "qcm",
-        question: "3. Qu'est-ce qui est toujours devant vous, mais que vous ne pouvez pas voir ?",
-        options: {
-            a: "Le passé",
-            b: "Le futur", // Bonne réponse
-            c: "Votre ombre",
-            d: "Votre reflet"
-        },
-        answer: "b"
-    },
-    {
-        id: "q4",
-        type: "qcm",
-        question: "4. Un coq est sur le toit d'une grange et pond un œuf. De quel côté l'œuf va-t-il tomber ?",
-        options: {
-            a: "Du côté où le vent souffle",
-            b: "Du côté le plus en pente",
-            c: "Un coq ne pond pas d'œufs", // Bonne réponse
-            d: "Il ne tombera pas, il restera sur le toit"
+            a: "Je la répète, c’est amusant",
+            b: "Je ne dis rien, mais je l’écoute",
+            c: "Je défends la personne ou cherche la vérité", // Bonne réponse
+            d: "Je bloque cette personne sur les réseaux"
         },
         answer: "c"
     },
     {
-        id: "q5",
+        id: "bi3",
         type: "qcm",
-        question: "5. Un homme est né à Rome, a grandi à Rome, et est mort à Rome, mais n'a jamais été citoyen romain. Comment est-ce possible ?",
+        question: "3. On te confie un secret personnel. Que fais-tu ?",
         options: {
-            a: "Il était un esclave",
-            b: "Il était un ambassadeur étranger",
-            c: "Rome est le nom de son cheval", // Bonne réponse
-            d: "Il est né avant la création de la citoyenneté romaine"
+            a: "Je le raconte à mon/ma meilleur(e) ami(e), ça compte pas",
+            b: "Je garde le secret, même si c’est tentant de le partager", // Bonne réponse
+            c: "Je fais semblant d’avoir oublié",
+            d: "Je le partage anonymement pour en parler"
+        },
+        answer: "b"
+    },
+    {
+        id: "bi4",
+        type: "qcm",
+        question: "4. Tu réalises que tu as blessé quelqu’un sans le vouloir. Quelle est ta réaction ?",
+        options: {
+            a: "Je l’ignore, ce n’était pas volontaire",
+            b: "Je m’excuse sincèrement et j’essaie de réparer", // Bonne réponse
+            c: "Je dis qu’il/elle est trop sensible",
+            d: "Je me justifie en montrant que j’avais raison"
+        },
+        answer: "b"
+    },
+    {
+        id: "bi5",
+        type: "qcm",
+        question: "5. Une personne marginalisée te demande de l’aide. Que fais-tu ?",
+        options: {
+            a: "Je l’aide si ça ne me dérange pas trop",
+            b: "Je fais semblant de ne pas l’avoir vue",
+            c: "Je l’aide naturellement, sans réfléchir", // Bonne réponse
+            d: "Je la renvoie à quelqu’un d’autre"
         },
         answer: "c"
     },
     {
-        id: "q6",
+        id: "bi6",
         type: "qcm",
-        question: "6. Qu'est-ce qui est plein de trous mais retient l'eau ?",
+        question: "6. Quel est ton premier réflexe lorsque tu es confronté(e) à un désaccord ?",
         options: {
-            a: "Un seau percé",
-            b: "Une éponge", // Bonne réponse
-            c: "Un tamis",
-            d: "Un verre cassé"
+            a: "Je m'énerve et j'essaie d'imposer mon point de vue",
+            b: "J'écoute attentivement l'autre personne pour comprendre sa perspective", // Bonne réponse
+            c: "Je coupe court à la discussion pour éviter le conflit",
+            d: "Je cherche des alliés pour me soutenir"
         },
         answer: "b"
     },
     {
-        id: "q7",
+        id: "bi7",
         type: "qcm",
-        question: "7. Je peux courir mais pas marcher, j'ai une bouche mais ne parle jamais. Qui suis-je ?",
+        question: "7. Tu as du temps libre. Comment préfères-tu l'utiliser ?",
         options: {
-            a: "Une rivière", // Bonne réponse
-            b: "Un chien",
-            c: "Un moteur",
-            d: "Un robot"
-        },
-        answer: "a"
-    },
-    {
-        id: "q8",
-        type: "qcm",
-        question: "8. Je suis toujours affamé, je dois toujours être nourri. La main que je lèche mordra ma vie. Qui suis-je ?",
-        options: {
-            a: "Un chat",
-            b: "Un feu", // Bonne réponse
-            c: "Un enfant",
-            d: "Un monstre"
+            a: "À me concentrer sur mes propres passe-temps et intérêts",
+            b: "À passer du temps avec mes proches et renforcer mes liens", // Bonne réponse
+            c: "À chercher de nouvelles activités pour me distraire",
+            d: "À me reposer et ne rien faire"
         },
         answer: "b"
     },
     {
-        id: "q9",
-        type: "numeric",
-        question: "9. Si une brique pèse un kilo plus une demi-brique, combien pèse une brique (en kilos) ?",
-        answer: "2" // Réponse en kg
-    },
-    {
-        id: "q10",
-        type: "text",
-        question: "10. Quel est le mois qui a 28 jours ?",
-        answer: "tous" // Piège : tous les mois ont au moins 28 jours.
-    },
-    {
-        id: "q11",
+        id: "bi8",
         type: "qcm",
-        question: "11. Quel est l'animal le plus ancien ayant une langue ? (indice : ce n'est pas un mammifère)",
+        question: "8. Une personne de ton entourage partage une réussite. Quelle est ta réaction ?",
         options: {
-            a: "Le serpent",
-            b: "Le poisson",
-            c: "Le caméléon",
-            d: "L'escargot", // Bonne réponse (radula)
-        },
-        answer: "d"
-    },
-    {
-        id: "q12",
-        type: "numeric",
-        question: "12. Il y a 3 pommes dans le panier. Tu en prends 2. Combien de pommes as-tu EN MAIN ?",
-        answer: "2"
-    },
-    {
-        id: "q13",
-        type: "qcm",
-        question: "13. Qu'est-ce qui monte mais ne redescend jamais ?",
-        options: {
-            a: "Un ascenseur",
-            b: "L'âge", // Bonne réponse
-            c: "Un ballon d'hélium",
-            d: "Le niveau d'eau dans une cruche remplie"
+            a: "Je ressens de l'envie et je compare ma situation à la sienne",
+            b: "Je la félicite sincèrement et je me réjouis pour elle", // Bonne réponse
+            c: "Je me dis que c'est de la chance et je minimise sa réussite",
+            d: "Je change de sujet rapidement"
         },
         answer: "b"
     },
     {
-        id: "q14",
-        type: "text",
-        // Question très complexe, conçue pour être difficile à résoudre sans IA
-        question: "14. Quel est le plus petit entier positif N tel que N peut être exprimé comme la somme de deux cubes de deux manières différentes ? (Répondez avec le nombre entier)",
-        answer: "1729" // La "bonne" réponse (nombre de Hardy-Ramanujan)
-    },
-    {
-        id: "q15",
+        id: "bi9",
         type: "qcm",
-        // Question pour compléter le nombre à 15 (peut être simple ou une blague)
-        question: "15. Qu'est-ce qui est grand, vert et ne s'arrête jamais de clignoter ?",
+        question: "9. On te propose une opportunité qui pourrait te profiter, mais qui nuirait à quelqu'un d'autre. Que fais-tu ?",
         options: {
-            a: "Un phare géant",
-            b: "Le feu vert d'un robot défectueux", // Bonne réponse
-            c: "Un ovni en approche",
-            d: "Une étoile très lointaine"
+            a: "J'accepte l'opportunité, mes intérêts passent avant tout",
+            b: "Je refuse l'opportunité si elle doit nuire à autrui", // Bonne réponse
+            c: "Je cherche un moyen de profiter de l'opportunité sans que l'autre le sache",
+            d: "J'hésite et je demande l'avis de mes amis"
         },
         answer: "b"
     },
-    // --- Questions pièges totalement invisibles (pour détection de manipulation directe du code) ---
     {
-        id: "trap1_hidden_checkbox",
-        type: "checkbox",
-        question: "Instruction interne du formulaire. Ne pas cocher.",
-        answer: false, // La "bonne" réponse est que cette case reste décochée
-        hidden: true // Invisible pour l'utilisateur
-    },
-    {
-        id: "trap2_hidden_text",
-        type: "text",
-        question: "Champ de validation interne. Laisser vide.",
-        answer: "", // La "bonne" réponse est que ce champ reste vide
-        hidden: true // Invisible pour l'utilisateur
+        id: "bi10",
+        type: "qcm",
+        question: "10. Comment réagis-tu face à la critique, qu'elle soit constructive ou non ?",
+        options: {
+            a: "Je me vexe et je me défends immédiatement",
+            b: "J'écoute la critique et j'essaie d'en tirer des leçons pour m'améliorer", // Bonne réponse
+            c: "Je l'ignore, je sais ce que je vaux",
+            d: "Je cherche à savoir qui m'a critiqué pour me venger"
+        },
+        answer: "b"
     }
-];
-
-// Codes animaux (ambigus)
-const positiveCodes = [
-    "PHOENIX-ARDENT 🔥",
-    "GUEPARD-AGILE 🐆",
-    "COBRA-SAGE 🐍",
-    "OURS-DISCRET 🐻",
-    "LOUP-SOLITAIRE 🐺"
-];
-
-const negativeCodes = [
-    "LAMA-RÊVEUR 🦙",
-    "PANDA-CALME 🐼",
-    "CHAT-MYSTÉRIEUX 🐱",
-    "HIBOU-NOCTURNE 🦉",
-    "CERF-INSOLITE 🦌"
 ];
