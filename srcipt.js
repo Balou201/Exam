@@ -112,3 +112,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the quiz when the page loads
     displayQuestions();
 });
+
