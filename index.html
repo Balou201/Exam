@@ -201,6 +201,7 @@
             let userAnswers = {}; // Pour stocker les réponses de l'utilisateur
 
             // 'questions', 'positiveCodes', et 'negativeCodes' sont définis dans quizData.js
+            // et devraient être accessibles ici.
 
             function displayQuestions() {
                 quizContainer.innerHTML = ''; // Nettoie le conteneur des questions
@@ -222,7 +223,7 @@
                             optionsDiv.appendChild(label);
                         }
                     }
-                    // Pour ce quiz "Beauté intérieure", nous nous concentrons sur le QCM.
+                    // Actuellement, ce quiz se concentre sur les QCM pour la beauté intérieure.
 
                     questionCard.appendChild(optionsDiv);
                     quizContainer.appendChild(questionCard);
@@ -303,4 +304,3 @@
     </script>
 </body>
 </html>
-
